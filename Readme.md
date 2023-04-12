@@ -1,1 +1,1 @@
-Bc. Polina Tselishcheva, for N-OI Open Informatucs, ENC-VGA Graphic Application Development
+Bc. Polina Tselishcheva, for N-OI Open Informatics, ENC-VGA Graphic Application Development

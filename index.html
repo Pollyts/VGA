@@ -4,10 +4,46 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+     
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css"> 
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script> 
+    
+    <title>MineSweeper 3D</title>
   </head>
-  <body>
-    <div id="app"></div>
+  <body>          
+        <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+          <div class="row">
+            <h1 class="text-center mb-5 font-weight-bold text-uppercase">MineSweeper</h1>
+          </div>
+          <div class="row">
+            <div class="col">
+              Width
+            </div>
+            <div class="col">
+              Height
+            </div>
+            <div class="col">
+              Mines
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input type="text" value="9" class="form-control">
+            </div>
+            <div class="col">
+              <input type="text" value="9" class="form-control">
+            </div>
+            <div class="col">
+              <input type="text" value="10" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <button type="button" class="btn playbutton">Start Game</button>
+          </div>
+        </div>
+        
+    <div id="app" style="display: none;"></div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

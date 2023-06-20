@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "Turret Road";
+  src: url('/components/fonts/TurretRoad-Regular.ttf');
+}
+
+@font-face {
+  font-family: "Turret Road Bold";
+  src: url('/components/fonts/TurretRoad-Bold.ttf');
+}
+
+@font-face {
+  font-family: "Turret Road Extra Bold";
+  src: url('/components/fonts/TurretRoad-ExtraBold.ttf');
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -12,10 +27,24 @@ body, #app {
   height: 100%;
   margin: 0 !important;
   padding: 0 !important;;
+  font-family: "Turret Road";
 }
 
 #app {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+input.form-control{
+  width: 50px;
+}
+
+.row{
+  width: 300px;
+}
+
+.playbutton{
+  font-family: "Turret Road Extra Bold";
+  background-color: #B2BEBF;
 }

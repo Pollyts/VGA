@@ -3,6 +3,18 @@ import 'aframe'
 import 'aframe-physics-system'
 
 document.querySelector('#app').innerHTML = `
+
+<a-scene>
+      <a-entity position="0 1.5 -3">
+        <a-text value="Добро пожаловать в мою игру" color="white" width="6"></a-text>
+      </a-entity>
+      
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      
+      <a-entity position="-1 0.5 -3">
+        <a-image src="start_button.jpg" width="2" height="1"></a-image>
+      </a-entity>
+    </a-scene>
     <a-scene>
         <a-assets>
             <a-asset-item id="cube" src="/models/cubeOne.glb"></a-asset-item>
@@ -13,20 +25,18 @@ document.querySelector('#app').innerHTML = `
             <a-asset-item id="cube6" src="/models/cubeSix.glb"></a-asset-item>
             <a-asset-item id="cube7" src="/models/cubeSeven.glb"></a-asset-item>
             <a-asset-item id="cube8" src="/models/cubeEight.glb"></a-asset-item>
+            <a-asset-item id="mine" src="/models/blender_mine.glb"></a-asset-item>
+            <a-asset-item id="flag" src="/models/blender_flag.glb"></a-asset-item>
             <img id="sky" src="/models/sky.jpg">
-            <img id="land" src="/models/land.jpg">
         </a-assets>
 
-        <a-sky src="#sky" theta-length="90" radius="30"></a-sky>
+        <a-sky src="#sky" theta-length="90" radius="30"></a-sky>        
 
-        <a-entity static-body gltf-model="#cube" position="0 0 0"></a-entity> 
-        <a-entity static-body gltf-model="#cube2" position="3 0 2"></a-entity> 
-        <a-entity static-body gltf-model="#cube3" position="5 0 2"></a-entity> 
-        <a-entity static-body gltf-model="#cube4" position="1 0 2"></a-entity> 
-        <a-entity static-body gltf-model="#cube5" position="3 0 6"></a-entity> 
-        <a-entity static-body gltf-model="#cube6" position="2 0 4"></a-entity> 
-        <a-entity static-body gltf-model="#cube7" position="7 0 10"></a-entity> 
-        <a-entity static-body gltf-model="#cube8" position="10 0 5"></a-entity> 
+        <div id="field">
+        
+        </div>
+
+        
 
         <!-- Camera -->
         <a-camera>

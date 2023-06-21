@@ -39,11 +39,25 @@
             </div>
           </div>
           <div class="row">
-            <button type="button" class="btn playbutton">Start Game</button>
+            <button type="button" id="startButton" class="btn playbutton">Start Game</button>
           </div>
         </div>
+
+        <div class="container vh-100 d-flex flex-column justify-content-center align-items-center" style="display: none;">
+          <div id="menu" class="menu-container">
+            <div class="button-container">
+              <button id="resumeButton" class="start-button">Resume Game</button>
+              <button id="playAgainButton" class="play-again-button">Play Again</button>
+              <button id="muteButton" class="start-button">Mute Music</button>
+            
+            </div>
+          </div>
+           
+        </div>
+
         
-    <div id="app" style="display: none;"></div>
+        
+    <div id="app" style="display: none;"></div>    
     <script type="module" src="/main.js"></script>
   </body>
 </html>

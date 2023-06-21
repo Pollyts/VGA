@@ -48,3 +48,15 @@ input.form-control{
   font-family: "Turret Road Extra Bold";
   background-color: #B2BEBF;
 }
+
+#menuIcon {
+  display: block;
+  z-index: 9999;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  color: #B2BEBF;
+  cursor: pointer;
+
+}

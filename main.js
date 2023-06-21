@@ -2,20 +2,88 @@ import './style.css'
 import 'aframe'
 import 'aframe-physics-system'
 
-document.querySelector('#app').innerHTML = `
+// const backgroundMusic = document.getElementById('backgroundMusic');
+// const menuElement = document.querySelector('#menu');
+const startButton = document.querySelector('#startButton');
+const gameSceneElement = document.querySelector('#app');
+// const playAgainButton = document.querySelector('#playAgainButton');
+// const resumeButton = document.querySelector('#resumeButton');
+// const menuIcon = document.querySelector('#menuIcon');
+// const muteButton = document.querySelector('#muteButton');
+// const application = document.querySelector('#app');
+// menuIcon.style.display = 'none';
+gameSceneElement.style.display = 'none';
+// playAgainButton.style.display = 'none';
+// resumeButton.style.display = 'none';
+// muteButton.style.display = 'none';
+// application.style.display = 'none';
 
-<a-scene>
-      <a-entity position="0 1.5 -3">
-        <a-text value="Добро пожаловать в мою игру" color="white" width="6"></a-text>
-      </a-entity>
-      
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      
-      <a-entity position="-1 0.5 -3">
-        <a-image src="start_button.jpg" width="2" height="1"></a-image>
-      </a-entity>
-    </a-scene>
+
+startButton.addEventListener('click', () => {
+    // menuElement.style.display = 'none';
+    gameSceneElement.style.display = 'block';
+    //backgroundMusic.play();
+    // menuIcon.style.display = 'block';
+});
+
+// menuIcon.addEventListener('click', () => {
+//     menuElement.style.display = 'block';
+//     playAgainButton.style.display = 'none';
+//     gameSceneElement.style.display = 'none';
+//     startButton.style.display = 'none';
+//     menuIcon.style.display = 'none';
+//     resumeButton.style.display = 'block';
+//     muteButton.style.display = 'block';
+// });
+
+// resumeButton.addEventListener('click', () => {
+//     menuElement.style.display = 'none';
+//     playAgainButton.style.display = 'none';
+//     gameSceneElement.style.display = 'block';
+//     startButton.style.display = 'none';
+//     menuIcon.style.display = 'block';
+//     muteButton.style.display = 'none';
+// });
+
+// muteButton.addEventListener('click', () => {
+//     if (backgroundMusic.paused) {
+//         backgroundMusic.play();
+//         muteButton.textContent = 'Mute Music';
+//     } else {
+//         backgroundMusic.pause();
+//         muteButton.textContent = 'Unmute Music';
+//     }
+// });
+
+// playAgainButton.addEventListener('click', () => {
+//     location.reload();
+//     menuElement.style.display = 'none';
+//     gameSceneElement.style.display = 'block';
+// });
+
+// document.addEventListener('gameFinished', () => {
+//     menuIcon.style.display = 'none';
+//     startButton.style.display = 'none';
+//     playAgainButton.style.display = 'block';
+//     menuElement.style.display = 'block';
+//     gameSceneElement.style.display = 'none';
+//     backgroundMusic.pause();
+//     muteButton.style.display = 'none';
+// });
+
+
+
+
+document.querySelector('#app').innerHTML = `
+<div id="menuIcon">
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-house-gear" viewBox="0 0 16 16">
+  <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708L7.293 1.5Z"/>
+  <path d="M11.886 9.46c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.044c-.613-.181-.613-1.049 0-1.23l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"/>
+</svg>
+</div>
+
     <a-scene>
+    
         <a-assets>
             <a-asset-item id="cube" src="/models/cubeOne.glb"></a-asset-item>
             <a-asset-item id="cube2" src="/models/cubeTwo.glb"></a-asset-item>

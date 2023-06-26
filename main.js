@@ -2,9 +2,13 @@ import './style.css'
 import 'aframe'
 import 'aframe-physics-system'
 import './mineField'
+import './components/character'
+import './components/camera-tracker'
+import './components/cursor-interaction'
 
 // const backgroundMusic = document.getElementById('backgroundMusic');
-// const menuElement = document.querySelector('#menu');
+const startMenu = document.querySelector('#startMenu');
+const mainMenu = document.querySelector('#mainMenu');
 const startButton = document.querySelector('#startButton');
 const application = document.querySelector('#app');
 // const playAgainButton = document.querySelector('#playAgainButton');
@@ -19,70 +23,18 @@ application.style.display = 'none';
 // muteButton.style.display = 'none';
 // application.style.display = 'none';
 
-function generateMinesweeperField(width, height, numMines) {
-  // Create an empty field with all values set to 0
-  var field = [];
-  for (var row = 0; row < height; row++) {
-    field[row] = [];
-    for (var col = 0; col < width; col++) {
-      field[row][col] = null;
-    }
-  }
 
-  // Place the mines randomly in the field
-  var minesPlaced = 0;
-  while (minesPlaced < numMines) {
-    var randomRow = Math.floor(Math.random() * height);
-    var randomCol = Math.floor(Math.random() * width);
-
-    // If the cell doesn't already have a mine, place one
-    if (field[randomRow][randomCol] !== 0) {
-      field[randomRow][randomCol] = 0;
-      minesPlaced++;
-    }
-  }
-
-  // Calculate the number of adjacent mines for each cell
-  for (var row = 0; row < height; row++) {
-    for (var col = 0; col < width; col++) {
-      if (field[row][col] === 0) {
-        continue; // Skip if the cell is already a mine
-      }
-
-      // Check the surrounding cells
-      var adjacentMines = 0;
-      for (var i = -1; i <= 1; i++) {
-        for (var j = -1; j <= 1; j++) {
-          if (
-            row + i >= 0 &&
-            row + i < height &&
-            col + j >= 0 &&
-            col + j < width &&
-            field[row + i][col + j] === 0
-          ) {
-            adjacentMines++;
-          }
-        }
-      }
-      if(adjacentMines > 0)
-      {
-        field[row][col] = adjacentMines;
-      }
-
-      
-    }
-  }
-
-  return field;
-}
 
 
 startButton.addEventListener('click', () => {
-    // menuElement.style.display = 'none';
+    startMenu.style.display = 'none';
+    startMenu.classList.remove('d-flex');
+    mainMenu.classList.remove('d-flex');
     application.style.display = 'block'; 
 
      document.querySelector('#app').innerHTML = `
-<div id="menuIcon">
+
+     <div id="menuIcon">
       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-house-gear"
         viewBox="0 0 16 16">
         <path
@@ -97,7 +49,8 @@ startButton.addEventListener('click', () => {
     <a-scene id="gameScene">
 
       <a-assets>
-        <a-asset-item id="cube" src="/models/cubeOne.glb"></a-asset-item>
+        <a-asset-item id="cubeZero" src="/models/cubeZero.glb"></a-asset-item>
+        <a-asset-item id="cube1" src="/models/cubeOne.glb"></a-asset-item>
         <a-asset-item id="cube2" src="/models/cubeTwo.glb"></a-asset-item>
         <a-asset-item id="cube3" src="/models/cubeThree.glb"></a-asset-item>
         <a-asset-item id="cube4" src="/models/cubeFour.glb"></a-asset-item>
@@ -106,63 +59,33 @@ startButton.addEventListener('click', () => {
         <a-asset-item id="cube7" src="/models/cubeSeven.glb"></a-asset-item>
         <a-asset-item id="cube8" src="/models/cubeEight.glb"></a-asset-item>
         <a-asset-item id="mine" src="/models/blender_mine.glb"></a-asset-item>
-        <a-asset-item id="flag" src="/models/blender_flag.glb"></a-asset-item>
+        <a-asset-item id="flag" src="/models/blanderflag.glb"></a-asset-item>
+        <a-asset-item id="eva" src="/models/eva-animated-complete.glb"></a-asset-item>
         <img id="sky" src="/models/sky.jpg">
       </a-assets>
+      
 
-      <a-sky src="#sky" theta-length="90" radius="30"></a-sky>
+      <a-entity id="camera" camera position="0 4 0" rotation="90 90 90" look-controls wasd-controls camera-tracker>
+            <a-entity cursor
+            geometry="primitive: ring; radiusInner: 0.03; radiusOuter: 0.04"
+            material="color: black; shader: flat"
+            position="0 0 -5">
+            </a-entity>
+      </a-entity>     
 
-      <div id="field">
-
-      </div>
-
-
-
-      <!-- Camera -->
-      <a-camera>
-
-        <a-entity cursor="downEvents: triggerdown; upEvents: triggerUp"
-          geometry="primitive: ring; radiusInner: 0.03; radiusOuter: 0.05" material="color: blue; shader: flat"
-          position="0 0 -1">
-        </a-entity>
-      </a-camera>
-
-      <a-entity id="ground" src="#land" geometry="primitive: cylinder; radius: 30; height: 0.1" position="0 0 0" material="shader: flat; src: #land">
-      </a-entity>
     </a-scene>
-
- `
-
-   var scene = document.querySelector('#gameScene');
+ `   
    const mineField = document.createElement('a-entity');
    var width = document.getElementById('inputWidth').value;
    var height = document.getElementById('inputHeight').value;
    var mines = document.getElementById('inputMines').value;
-  //  var parameters="width: " +width + "; height: " + height + "; mines: " + mines + ";"
-   mineField.setAttribute("minefield", '');
-  //  mineField.setAttribute('static-body', '');
-  //  mineField.setAttribute('position', `0 0 0`);
-  var minesweeperField = generateMinesweeperField(width, height, mines);
-  console.log(minesweeperField);
-  
+   var parameters="width: " +width + "; height: " + height + "; mines: " + mines + ";"
+   mineField.setAttribute("minefield", parameters);
+   var scene = document.querySelector('#gameScene');
    scene.appendChild(mineField);
-  //  var cubeContainer = document.getElementById("cubeContainer");
-
-  //     for (var row = 0; row < height; row++) {
-  //       for (var column = 0; column < width; column++) {
-  //         var cube = document.createElement("a-box");
-  //         cube.setAttribute("position", `${column - width / 2} ${row - height / 2} 0`);
-  //         cubeContainer.appendChild(cube);
-  //       }
-  //     }
-
+  //  mineField.setAttribute('static-body', '');
+  //  mineField.setAttribute('position', `0 0 0`); 
   
-// Example usage
-// var width = 8;
-// var height = 8;
-// var numMines = 10;
-
-
 });
 
 

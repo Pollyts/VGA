@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+  <div class="container vh-100 d-flex flex-column justify-content-center align-items-center" id="startMenu">
     <div class="row">
       <h1 class="text-center mb-5 font-weight-bold text-uppercase">MineSweeper</h1>
     </div>
@@ -45,8 +45,8 @@
     </div>
   </div>
 
-  <div class="container vh-100 d-flex flex-column justify-content-center align-items-center" style="display: none;">
-    <div id="menu" class="menu-container">
+  <div class="container vh-100 d-flex flex-column justify-content-center align-items-center" style="display: none;" id="mainMenu">
+    <div class="menu-container">
       <div class="button-container">
         <button id="resumeButton" class="start-button">Resume Game</button>
         <button id="playAgainButton" class="play-again-button">Play Again</button>
@@ -58,11 +58,11 @@
   </div>
 
 
-  <div id="app" style="display: none;">   
+  <div id="app" style="display: none;">    
 
   </div>
   <script type="module" src="/main.js"></script>
- 
+
 </body>
 
 </html>

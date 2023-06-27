@@ -22,53 +22,9 @@ AFRAME.registerComponent('raycaster-listen', {
           const cameraPosition = this.intersection.object.el.object3D.position;
           this.intersection=null;
           this.raycaster = null;
-      const objects = document.querySelectorAll('[position]');
-      const foundObjects = [];
 
-      for (let i = 0; i < objects.length; i++) {
-        const objectPosition = objects[i].object3D.position;
-        if (objectPosition.equals(cameraPosition)) {
-          var currentObject = objects[i];
-          if (currentObject.hasAttribute('zero')) {
-            currentObject.removeAttribute('zero');
-            if(currentObject.getAttribute('count')==null)
-            {
-              //открыть соседние ячейки
-            }
-            else if(currentObject.getAttribute('count')==0)
-            {
-              var scene = document.querySelector('#gameScene');
-              var cube = document.createElement("a-entity");             
-
-              cube.setAttribute("position", `${currentObject.object3D.position.x} ${currentObject.object3D.position.y} ${currentObject.object3D.position.z}`);
-              cube.setAttribute('gltf-model', '#mine');
-              cube.setAttribute('count', currentObject.getAttribute('count'));
-              cube.setAttribute('static-body', '');
-              currentObject.parentNode.removeChild(currentObject);
-              scene.appendChild(cube);
-            }
-            else{
-              //currentObject.removeAttribute('gltf-model')              
-              //currentObject.components.gltf-model.attrValue='#cube2';
-              //currentObject.components.gltf-model.attrValue.setAttribute('gltf-model', "/models/cubeTwo.glb");
-              var scene = document.querySelector('#gameScene');
-
-              var cube = document.createElement("a-entity");             
-
-              cube.setAttribute("position", `${currentObject.object3D.position.x} ${currentObject.object3D.position.y} ${currentObject.object3D.position.z}`);
-              cube.setAttribute('gltf-model', `#cube${currentObject.getAttribute('count')}`);
-              cube.setAttribute('count', currentObject.getAttribute('count'));
-              cube.setAttribute('static-body', '');
-              cube.setAttribute("scale", "1 0.1 1");
-              //currentObject.parentNode.removeChild(currentObject);
-              scene.appendChild(cube);
-              
-            }
-
-          }
+          openCell(cameraPosition);
         }
-      }    
-    }
 
         if (event.key === 'e') {
             if(!this.intersection){
@@ -108,10 +64,24 @@ AFRAME.registerComponent('raycaster-listen', {
               flag.setAttribute('gltf-model', '#flag');
               flag.setAttribute('flag');
               flag.setAttribute('static-body', '');
-              scene.appendChild(flag);           
+              scene.appendChild(flag); 
+              
+              currentObject.setAttribute('withFlag')
               
             }
 
+          }
+        }
+      }
+      else{
+        const objects = document.querySelectorAll('[position]');
+      for (let i = 0; i < objects.length; i++) {
+        const objectPosition = objects[i].object3D.position;
+        if (objectPosition.equals(cameraPosition)) {
+          var currentObject = objects[i];
+          if (currentObject.hasAttribute('withFlag')) {  
+            currentObject.removeAttribute('withFlag')
+            }
           }
         }
       }       
@@ -128,14 +98,65 @@ AFRAME.registerComponent('raycaster-listen', {
 //   }
 });
 
-// AFRAME.registerComponent('collider-check', {
-//     dependencies: ['raycaster'],
-  
-//     init: function () {  
-//         this.object = null;      
-//       this.el.addEventListener('raycaster-intersection', function () {
-//         this.object = 
-//         console.log('Player hit something!');
-//       });
-//     }
-//   });
+function openCell(selectedPosition) {
+  const objects = document.querySelectorAll('[position]');
+    for (let i = 0; i < objects.length; i++) {
+      const objectPosition = objects[i].object3D.position;
+      if (objectPosition.equals(selectedPosition)) {
+        var currentObject = objects[i];
+        if(currentObject.hasAttribute('withFlag')){
+            return;
+          }
+        if (currentObject.hasAttribute('zero')) {
+          currentObject.removeAttribute('zero');
+          var scene = document.querySelector('#gameScene');
+          if(currentObject.getAttribute('count')==='null')
+          {
+            var cube = document.createElement("a-entity");             
+
+            cube.setAttribute("position", `${currentObject.object3D.position.x} ${currentObject.object3D.position.y} ${currentObject.object3D.position.z}`);
+            cube.setAttribute('gltf-model', '#cubeZeroLight');
+            cube.setAttribute("scale", "1 0.1 1");
+            cube.setAttribute('count', currentObject.getAttribute('count'));
+            cube.setAttribute('static-body', '');
+            openCell(new THREE.Vector3(currentObject.object3D.position.x+2,0, currentObject.object3D.position.z));
+            openCell(new THREE.Vector3(currentObject.object3D.position.x-2,0, currentObject.object3D.position.z));
+            openCell(new THREE.Vector3(currentObject.object3D.position.x,0, currentObject.object3D.position.z+2));
+            openCell(new THREE.Vector3(currentObject.object3D.position.x,0, currentObject.object3D.position.z-2));
+            openCell(new THREE.Vector3(currentObject.object3D.position.x+2,0, currentObject.object3D.position.z+2));
+            openCell(new THREE.Vector3(currentObject.object3D.position.x-2,0, currentObject.object3D.position.z-2));
+            openCell(new THREE.Vector3(currentObject.object3D.position.x-2,0, currentObject.object3D.position.z+2));
+            openCell(new THREE.Vector3(currentObject.object3D.position.x+2,0, currentObject.object3D.position.z-2));
+            currentObject.parentNode.removeChild(currentObject);
+            scene.appendChild(cube);
+          }
+          else if(currentObject.getAttribute('count')==0)
+          {
+            
+            var cube = document.createElement("a-entity");             
+
+            cube.setAttribute("position", `${currentObject.object3D.position.x} ${currentObject.object3D.position.y} ${currentObject.object3D.position.z}`);
+            cube.setAttribute('gltf-model', '#mine');
+            cube.setAttribute('count', currentObject.getAttribute('count'));
+            cube.setAttribute('static-body', '');
+            currentObject.parentNode.removeChild(currentObject);
+            scene.appendChild(cube);
+          }
+          else{
+
+            var cube = document.createElement("a-entity");             
+
+            cube.setAttribute("position", `${currentObject.object3D.position.x} ${currentObject.object3D.position.y} ${currentObject.object3D.position.z}`);
+            cube.setAttribute('gltf-model', `#cube${currentObject.getAttribute('count')}`);
+            cube.setAttribute('count', currentObject.getAttribute('count'));
+            cube.setAttribute("scale", "1 0.1 1");
+            cube.setAttribute('static-body', '');
+            //currentObject.parentNode.removeChild(currentObject);
+            scene.appendChild(cube);
+            
+          }
+
+        }
+      }
+    }
+}

@@ -49,6 +49,7 @@ startButton.addEventListener('click', () => {
     <a-scene id="gameScene">
 
       <a-assets>
+        <a-asset-item id="cubeZeroLight" src="/models/cubeZeroLight.glb"></a-asset-item>
         <a-asset-item id="cubeZero" src="/models/cubeZero.glb"></a-asset-item>
         <a-asset-item id="cube1" src="/models/cubeOne.glb"></a-asset-item>
         <a-asset-item id="cube2" src="/models/cubeTwo.glb"></a-asset-item>
@@ -60,12 +61,10 @@ startButton.addEventListener('click', () => {
         <a-asset-item id="cube8" src="/models/cubeEight.glb"></a-asset-item>
         <a-asset-item id="mine" src="/models/blender_mine.glb"></a-asset-item>
         <a-asset-item id="flag" src="/models/blanderflag.glb"></a-asset-item>
-        <a-asset-item id="eva" src="/models/eva-animated-complete.glb"></a-asset-item>
-        <img id="sky" src="/models/sky.jpg">
       </a-assets>
       
 
-      <a-entity id="camera" camera position="0 6 0" rotation="90 90 90" look-controls wasd-controls camera-tracker>
+      <a-entity id="camera" camera position="0 6 0" look-controls wasd-controls camera-tracker rotation = "0 180 0">
             <a-entity cursor 
             geometry="primitive: ring; radiusInner: 0.03; radiusOuter: 0.04"
             material="color: black; shader: flat"
@@ -84,6 +83,9 @@ startButton.addEventListener('click', () => {
    mineField.setAttribute("minefield", parameters);
    var scene = document.querySelector('#gameScene');
    scene.appendChild(mineField);
+
+
+
   //  mineField.setAttribute('static-body', '');
   //  mineField.setAttribute('position', `0 0 0`); 
   

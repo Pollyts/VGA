@@ -10,18 +10,12 @@ import './components/cursor-interaction'
 const startMenu = document.querySelector('#startMenu');
 const mainMenu = document.querySelector('#mainMenu');
 const startButton = document.querySelector('#startButton');
+// const openCellsCount = document.querySelector('#openCellsCount');
+// const bombFoundCount = document.querySelector('#bombFoundCount');
+// const timeSpent = document.querySelector('#timeSpent');
+
 const application = document.querySelector('#app');
-// const playAgainButton = document.querySelector('#playAgainButton');
-// const resumeButton = document.querySelector('#resumeButton');
-// const menuIcon = document.querySelector('#menuIcon');
-// const muteButton = document.querySelector('#muteButton');
-// const application = document.querySelector('#app');
-// menuIcon.style.display = 'none';
 application.style.display = 'none';
-// playAgainButton.style.display = 'none';
-// resumeButton.style.display = 'none';
-// muteButton.style.display = 'none';
-// application.style.display = 'none';
 
 
 
@@ -30,6 +24,7 @@ startButton.addEventListener('click', () => {
     startMenu.style.display = 'none';
     startMenu.classList.remove('d-flex');
     mainMenu.classList.remove('d-flex');
+    
     application.style.display = 'block'; 
 
      document.querySelector('#app').innerHTML = `
@@ -44,9 +39,46 @@ startButton.addEventListener('click', () => {
       </svg>
     </div>
 
+    <div style="display: none;" class="container" id="gameFinish">
+    <div class="row">
+      <h1 class="text-center mb-5 font-weight-bold text-uppercase">GAME OVER</h1>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        Cells were opened
+      </div>
+      <div class="col">
+        <span id="openCellsCount">0</span>
+      </div>      
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        Bombs were found
+      </div>
+      <div class="col">
+        <span id="bombFoundCount">0</span>
+      </div>   
+    </div>
+    <div class="row mb-3">    
+      <div class="col">
+        Time
+      </div>     
+      <div class="col">
+        <span id="timeSpent">0</span>
+      </div>
+    </div>
+    <div class="row mb-3">    
+      <button type="button" id="newGame" class="btn playbutton">New Game</button>
+    </div>
+
+    <div class="row mb-3">    
+      <button type="button" id="showMap" class="btn playbutton">Show Map</button>
+    </div>
+  </div>
+
     <script type="module" src="/main.js"></script>
 
-    <a-scene id="gameScene">
+    <a-scene id="gameScene" z-index=10>
 
       <a-assets>
         <a-asset-item id="cubeZeroLight" src="/models/cubeZeroLight.glb"></a-asset-item>
@@ -75,6 +107,9 @@ startButton.addEventListener('click', () => {
 
     </a-scene>
  `   
+
+  //const gameFinish = document.querySelector('#gameFinish');
+  //gameFinish.classList.remove('d-flex');
    const mineField = document.createElement('a-entity');
    var width = document.getElementById('inputWidth').value;
    var height = document.getElementById('inputHeight').value;
@@ -84,61 +119,69 @@ startButton.addEventListener('click', () => {
    var scene = document.querySelector('#gameScene');
    scene.appendChild(mineField);
 
+   const timerElement = document.getElementById('timer');
 
+// Initialize variables
+let startTime = null;
+let elapsedTime = 0;
+let timerInterval;
 
-  //  mineField.setAttribute('static-body', '');
-  //  mineField.setAttribute('position', `0 0 0`); 
+// Function to start the timer
+function startTimer() {
+  // Set the start time
+  startTime = Date.now();
+  // Start the timer interval
+  timerInterval = setInterval(updateTimer, 1000); // Update every second
+}
+
+// Function to update the timer display
+function updateTimer() {
+  // Calculate the elapsed time in seconds
+  const currentTime = Date.now();
+  elapsedTime = Math.floor((currentTime - startTime) / 1000);
+  // Update the timer element text
+  timerElement.textContent = `${elapsedTime} seconds`;
+}
+
+function resetTimer() {
+  clearInterval(timerInterval); // Stop the timer
+}
+
+startTimer();
+
+const newGameButton = document.querySelector('#newGame');
+
+newGameButton.addEventListener('click', () => {
+  resetTimer();
+  startMenu.style.display = 'none';
+  startMenu.classList.add('d-flex');
+  mainMenu.classList.remove('d-flex');
+  const gameFinishMenu = document.querySelector('#gameFinish')
+  gameFinishMenu.style.display = 'none';
+  
+  application.style.display = 'none'; 
+  var scene = document.querySelector('#gameScene');
+  scene.parentNode.removeChild(scene);
+});
   
 });
 
 
 
 
-// menuIcon.addEventListener('click', () => {
-//     menuElement.style.display = 'block';
-//     playAgainButton.style.display = 'none';
-//     gameSceneElement.style.display = 'none';
-//     startButton.style.display = 'none';
-//     menuIcon.style.display = 'none';
-//     resumeButton.style.display = 'block';
-//     muteButton.style.display = 'block';
+// gameFinish.addEventListener('click', () => {
+//   startMenu.style.display = 'none';
+//   startMenu.classList.remove('d-flex');
+//   mainMenu.classList.remove('d-flex');
+//   gameFinish.classList.remove('d-flex');
+//   application.style.display = 'block';    
+//  const mineField = document.createElement('a-entity');
+//  var width = document.getElementById('inputWidth').value;
+//  var height = document.getElementById('inputHeight').value;
+//  var mines = document.getElementById('inputMines').value;
+//  var parameters="width: " +width + "; height: " + height + "; mines: " + mines + ";"
+//  mineField.setAttribute("minefield", parameters);
+//  var scene = document.querySelector('#gameScene');
+//  scene.appendChild(mineField);
+
 // });
-
-// resumeButton.addEventListener('click', () => {
-//     menuElement.style.display = 'none';
-//     playAgainButton.style.display = 'none';
-//     gameSceneElement.style.display = 'block';
-//     startButton.style.display = 'none';
-//     menuIcon.style.display = 'block';
-//     muteButton.style.display = 'none';
-// });
-
-// muteButton.addEventListener('click', () => {
-//     if (backgroundMusic.paused) {
-//         backgroundMusic.play();
-//         muteButton.textContent = 'Mute Music';
-//     } else {
-//         backgroundMusic.pause();
-//         muteButton.textContent = 'Unmute Music';
-//     }
-// });
-
-// playAgainButton.addEventListener('click', () => {
-//     location.reload();
-//     menuElement.style.display = 'none';
-//     gameSceneElement.style.display = 'block';
-// });
-
-// document.addEventListener('gameFinished', () => {
-//     menuIcon.style.display = 'none';
-//     startButton.style.display = 'none';
-//     playAgainButton.style.display = 'block';
-//     menuElement.style.display = 'block';
-//     gameSceneElement.style.display = 'none';
-//     backgroundMusic.pause();
-//     muteButton.style.display = 'none';
-// });
-
-
-
-

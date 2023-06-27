@@ -56,7 +56,15 @@ AFRAME.registerComponent('raycaster-listen', {
         const objectPosition = objects[i].object3D.position;
         if (objectPosition.equals(cameraPosition)) {
           var currentObject = objects[i];
-          if (currentObject.hasAttribute('zero')) {            
+          if (currentObject.hasAttribute('zero')) {
+            if(currentObject.getAttribute('count')==0)
+            {
+              const spanElement = document.getElementById('bombFoundCount');
+              const spanText = spanElement.textContent;
+              const currentValue = parseInt(spanText);
+              const newValue = currentValue + 1;
+              spanElement.textContent = newValue.toString();    
+            }                    
               var scene = document.querySelector('#gameScene');
               var flag = document.createElement("a-entity");             
 
@@ -79,7 +87,15 @@ AFRAME.registerComponent('raycaster-listen', {
         const objectPosition = objects[i].object3D.position;
         if (objectPosition.equals(cameraPosition)) {
           var currentObject = objects[i];
-          if (currentObject.hasAttribute('withFlag')) {  
+          if (currentObject.hasAttribute('withFlag')) {
+            if(currentObject.getAttribute('count')==0)
+            {
+              const spanElement = document.getElementById('bombFoundCount');
+              const spanText = spanElement.textContent;
+              const currentValue = parseInt(spanText);
+              const newValue = currentValue - 1;
+              spanElement.textContent = newValue.toString();    
+            }    
             currentObject.removeAttribute('withFlag')
             }
           }
@@ -89,13 +105,6 @@ AFRAME.registerComponent('raycaster-listen', {
 
       });
   },
-
-//   tick: function () {
-//     if (!this.raycaster) { return; }  // Not intersecting.
-
-//     let intersection = this.raycaster.components.raycaster.getIntersection(this.el);
-//     if (!intersection) { return; }
-//   }
 });
 
 function openCell(selectedPosition) {
@@ -109,6 +118,11 @@ function openCell(selectedPosition) {
           }
         if (currentObject.hasAttribute('zero')) {
           currentObject.removeAttribute('zero');
+          const spanElement = document.getElementById('openCellsCount');
+          const spanText = spanElement.textContent;
+          const currentValue = parseInt(spanText);
+          const newValue = currentValue + 1;
+          spanElement.textContent = newValue.toString();
           var scene = document.querySelector('#gameScene');
           if(currentObject.getAttribute('count')==='null')
           {
@@ -141,6 +155,13 @@ function openCell(selectedPosition) {
             cube.setAttribute('static-body', '');
             currentObject.parentNode.removeChild(currentObject);
             scene.appendChild(cube);
+              const gameFinish = document.querySelector('#gameFinish');
+              gameFinish.removeAttribute('style');
+              const camera = document.querySelector("#camera");              
+              camera.removeAttribute("wasd-controls");   
+              const timerView = document.getElementById('timeSpent');
+              const timer = document.getElementById('timer');
+          timerView.textContent = timer.textContent;        
           }
           else{
 

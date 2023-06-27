@@ -101,6 +101,7 @@ AFRAME.registerComponent('minefield', {
   
 });
 
+
 function openCell(selectedPosition) {
   const objects = document.querySelectorAll('[position]');
     for (let i = 0; i < objects.length; i++) {
@@ -109,6 +110,11 @@ function openCell(selectedPosition) {
         var currentObject = objects[i];
         if (currentObject.hasAttribute('zero')) {
           currentObject.removeAttribute('zero');
+          const spanElement = document.getElementById('openCellsCount');
+          const spanText = spanElement.textContent;
+          const currentValue = parseInt(spanText);
+          const newValue = currentValue + 1;
+          spanElement.textContent = newValue.toString();
           var scene = document.querySelector('#gameScene');
           if(currentObject.getAttribute('count')==='null')
           {

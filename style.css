@@ -60,3 +60,21 @@ input.form-control{
   cursor: pointer;
 
 }
+
+#gameFinish {
+  z-index: 9999;
+  display: block;  
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  width: auto;
+  height: auto;
+  /* font-size: 24px;
+  color: #B2BEBF;
+  cursor: pointer; */
+  background-color: #fff;
+  border-radius: 15%;
+  border:  3px solid #B2BEBF;
+  padding: 30px;
+
+}

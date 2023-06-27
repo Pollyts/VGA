@@ -16,9 +16,11 @@ AFRAME.registerComponent('minefield', {
     for (var row = 0; row < height; row++) {
       for (var column = 0; column < width; column++) {
         var cube = document.createElement("a-entity");
-        //cube.setAttribute('raycaster-listen',);
+        cube.setAttribute('raycaster-listen','');
         cube.setAttribute("position", `${row * 2} 0 ${column * 2}`);
+        cube.setAttribute("scale", "1 0.1 1");
         cube.setAttribute('gltf-model', '#cubeZero');
+        cube.setAttribute('class', 'clickable');
         cube.setAttribute('zero');        
         //https://aframe.io/docs/1.4.0/components/raycaster.html
         cube.setAttribute('count', this.minesweeperField[row][column]);
@@ -67,6 +69,7 @@ AFRAME.registerComponent('minefield', {
               cube.setAttribute("position", `${currentObject.object3D.position.x} ${currentObject.object3D.position.y} ${currentObject.object3D.position.z}`);
               cube.setAttribute('gltf-model', `#cube${currentObject.getAttribute('count')}`);
               cube.setAttribute('count', currentObject.getAttribute('count'));
+              cube.setAttribute("scale", "1 0.1 1");
               cube.setAttribute('static-body', '');
               //currentObject.parentNode.removeChild(currentObject);
               scene.appendChild(cube);

@@ -65,12 +65,13 @@ startButton.addEventListener('click', () => {
       </a-assets>
       
 
-      <a-entity id="camera" camera position="0 4 0" rotation="90 90 90" look-controls wasd-controls camera-tracker>
-            <a-entity cursor
+      <a-entity id="camera" camera position="0 6 0" rotation="90 90 90" look-controls wasd-controls camera-tracker>
+            <a-entity cursor 
             geometry="primitive: ring; radiusInner: 0.03; radiusOuter: 0.04"
             material="color: black; shader: flat"
-            position="0 0 -5">
+            position="0 0 -1">
             </a-entity>
+                        
       </a-entity>     
 
     </a-scene>

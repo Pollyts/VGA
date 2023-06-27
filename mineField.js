@@ -16,13 +16,13 @@ AFRAME.registerComponent('minefield', {
     for (var row = 0; row < height; row++) {
       for (var column = 0; column < width; column++) {
         var cube = document.createElement("a-entity");
+        //https://aframe.io/docs/1.4.0/components/raycaster.html
         cube.setAttribute('raycaster-listen','');
         cube.setAttribute("position", `${row * 2} 0 ${column * 2}`);
         cube.setAttribute("scale", "1 0.1 1");
         cube.setAttribute('gltf-model', '#cubeZero');
         cube.setAttribute('class', 'clickable');
         cube.setAttribute('zero');        
-        //https://aframe.io/docs/1.4.0/components/raycaster.html
         cube.setAttribute('count', this.minesweeperField[row][column]);
         cube.setAttribute('static-body', '');
         scene.appendChild(cube);
@@ -31,8 +31,7 @@ AFRAME.registerComponent('minefield', {
 
     document.querySelector('a-scene').addEventListener('camera-step', function (event) {
       openCell(event.detail.position);
-    });
-    
+    });    
 
   },
   
@@ -53,7 +52,7 @@ AFRAME.registerComponent('minefield', {
       var randomRow = Math.floor(Math.random() * height);
       var randomCol = Math.floor(Math.random() * width);
 
-      if(randomRow<=1&&randomRow<=1)
+      if(randomRow<=1&&randomCol<=1)
       {
         continue;
       }

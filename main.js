@@ -41,7 +41,7 @@ startButton.addEventListener('click', () => {
 
     <div style="display: none;" class="container" id="gameFinish">
     <div class="row">
-      <h1 class="text-center mb-5 font-weight-bold text-uppercase">GAME OVER</h1>
+      <h1 class="text-center mb-5 font-weight-bold text-uppercase" id="gameStatus">GAME OVER</h1>
     </div>
     <div class="row mb-3">
       <div class="col">
@@ -96,7 +96,7 @@ startButton.addEventListener('click', () => {
       </a-assets>
       
 
-      <a-entity id="camera" camera position="0 6 0" look-controls wasd-controls camera-tracker rotation = "0 180 0">
+      <a-entity id="camera" camera position="0 6 0" look-controls wasd-controls camera-tracker rotation = "0 0 0">
             <a-entity cursor 
             geometry="primitive: ring; radiusInner: 0.03; radiusOuter: 0.04"
             material="color: black; shader: flat"
@@ -162,6 +162,41 @@ newGameButton.addEventListener('click', () => {
   application.style.display = 'none'; 
   var scene = document.querySelector('#gameScene');
   scene.parentNode.removeChild(scene);
+});
+
+const returnHomeButton = document.querySelector('#menuIcon');
+
+returnHomeButton.addEventListener('click', () => {
+  resetTimer();
+  startMenu.style.display = 'none';
+  startMenu.classList.add('d-flex');
+  mainMenu.classList.remove('d-flex');
+  const gameFinishMenu = document.querySelector('#gameFinish')
+  gameFinishMenu.style.display = 'none';
+  
+  application.style.display = 'none'; 
+  var scene = document.querySelector('#gameScene');
+  scene.parentNode.removeChild(scene);
+});
+
+const showMapButton = document.querySelector('#showMap');
+
+showMapButton.addEventListener('click', () => {
+  const camera = document.querySelector("#camera");
+  camera.parentNode.removeChild(camera);
+  const gameFinishMenu = document.querySelector('#gameFinish')
+  gameFinishMenu.style.display = 'none'; 
+
+  var staticCamera = document.createElement("a-entity");
+  staticCamera.setAttribute('camera','');
+  staticCamera.setAttribute("position", `${width/ 2} 20 ${height/ 2}`);
+  //staticCamera.setAttribute("rotation", `0 180 0`);
+  //staticCamera.setAttribute("position", `5  5`);
+  staticCamera.setAttribute('look-controls', '');   
+  var scene = document.querySelector('#gameScene');    
+  scene.appendChild(staticCamera);
+  
+  
 });
   
 });
